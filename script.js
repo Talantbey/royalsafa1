@@ -4,6 +4,7 @@
    - WhatsApp links from data.json
    - Instagram embeds (index)
    - Gallery lightbox (click to enlarge + prev/next + keyboard)
+   - Ad/Promo image slider in hero
    ========================= */
 
 let DATA = null;
@@ -30,7 +31,13 @@ const ID_KEYS = [
   "extras_title","extras_desc","extras_note",
   "openings_title","openings_desc",
   "notes_title","notes_after",
-  "pdf_title","pdf_text"
+  "pdf_title","pdf_text",
+
+  /* ABOUT page new keys */
+  "about_title", "about_intro", "about_h2", "about_p1",
+  "about_h3_1", "about_p2", "about_h3_2", "about_p3",
+  "about_li_1", "about_li_2", "about_li_3", "about_h3_3",
+  "about_li_4", "about_li_5", "about_li_6", "about_li_7", "about_p4"
 ];
 
 function normalizePhone(p) {
@@ -149,12 +156,6 @@ function initLangButtons() {
 
 /* =========================
    GALLERY LIGHTBOX
-   Works on pages with images having class .zoom-img
-   Modal supports:
-   - #imgModal (container)
-   - image: #modalImg OR #imgModalContent
-   - close: .close OR #imgClose OR .img-close
-   - prev/next: .prev/.next OR .nav.prev/.nav.next
    ========================= */
 function initGalleryModal() {
   const modal = document.getElementById("imgModal");
@@ -184,18 +185,21 @@ function initGalleryModal() {
     modal.querySelector(".nav.next");
 
   let idx = 0;
+  // --- Улучшенные переменные для свайпа ---
+  let touchStartX = 0;
+  let touchStartY = 0;
 
   function open(i){
     idx = i;
     modal.classList.add("open");
-    modal.style.display = "flex"; // for legacy css
+    modal.style.display = "flex";
     modalImg.src = imgs[idx].src;
     document.body.style.overflow = "hidden";
   }
 
   function close(){
     modal.classList.remove("open");
-    modal.style.display = ""; // reset
+    modal.style.display = "";
     modalImg.src = "";
     document.body.style.overflow = "";
   }
@@ -221,7 +225,72 @@ function initGalleryModal() {
     if (e.key === "ArrowLeft") show(-1);
     if (e.key === "ArrowRight") show(1);
   });
+  
+  // --- НАЧАЛО УЛУЧШЕННОЙ ЛОГИКИ СВАЙПА ---
+  
+  modal.addEventListener('touchstart', (e) => {
+    if (e.target.closest('.nav') || e.target.closest('.close')) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY; // Запоминаем и Y координату
+  }, { passive: true });
+
+  modal.addEventListener('touchmove', (e) => {
+    if (touchStartX === 0 || touchStartY === 0) return;
+
+    const touchCurrentX = e.touches[0].clientX;
+    const touchCurrentY = e.touches[0].clientY;
+    
+    const diffX = Math.abs(touchStartX - touchCurrentX);
+    const diffY = Math.abs(touchStartY - touchCurrentY);
+
+    // Если движение больше горизонтальное, чем вертикальное,
+    // мы отменяем стандартное поведение браузера.
+    if (diffX > diffY) {
+      e.preventDefault();
+    }
+  }); // Важно: здесь нет { passive: true }
+
+  modal.addEventListener('touchend', (e) => {
+    if (touchStartX === 0) return;
+    
+    const touchEndX = e.changedTouches[0].clientX;
+    const swipeDiff = touchStartX - touchEndX;
+
+    if (swipeDiff > 50) { // Свайп влево
+      show(1);
+    } else if (swipeDiff < -50) { // Свайп вправо
+      show(-1);
+    }
+    
+    // Сбрасываем координаты
+    touchStartX = 0;
+    touchStartY = 0;
+  }, { passive: true });
+  // --- КОНЕЦ УЛУЧШЕННОЙ ЛОГИКИ СВАЙПА ---
 }
+
+
+/* =========================
+   HERO AD SLIDER (НОВАЯ ФУНКЦИЯ)
+   ========================= */
+function initAdSlider() {
+  const slides = document.querySelectorAll('.hero-slideshow .slide');
+  if (slides.length === 0) return;
+
+  let currentSlide = 0;
+
+  setInterval(() => {
+    // Скрываем текущий слайд
+    slides[currentSlide].classList.remove('active');
+
+    // Вычисляем индекс следующего слайда
+    currentSlide = (currentSlide + 1) % slides.length;
+
+    // Показываем следующий слайд
+    slides[currentSlide].classList.add('active');
+  }, 4000); // Интервал смены: 4 секунды
+}
+
 
 /* YEAR */
 function setYear() {
@@ -237,16 +306,21 @@ async function boot() {
   initLangButtons();
   setYear();
   initGalleryModal();
+  initAdSlider(); // <--- ВЫЗОВ НОВОЙ ФУНКЦИИ
 
-  const res = await fetch("data.json", { cache: "no-store" });
-  DATA = await res.json();
-
-  applyText();
-  renderInstagram();
+  try {
+    const res = await fetch("data.json", { cache: "no-store" });
+    if (!res.ok) {
+        console.error("Failed to load data.json", res.status, res.statusText);
+        return;
+    }
+    DATA = await res.json();
+    applyText();
+    renderInstagram();
+  } catch (err) {
+    console.error("BOOT ERROR:", err);
+  }
 }
 
-document.addEventListener("DOMContentLoaded", ()=>{
-  boot().catch(err=>{
-    console.error("BOOT ERROR:", err);
-  });
-});
+document.addEventListener("DOMContentLoaded", boot);
+
