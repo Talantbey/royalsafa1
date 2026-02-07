@@ -1,46 +1,44 @@
 /* =========================
    ROYAL SAFA — SITE SCRIPT
-   - RU/KG localization (default RU)
-   - WhatsApp links from data.json
-   - Instagram embeds (index)
-   - Gallery lightbox (click to enlarge + prev/next + keyboard)
-   - Ad/Promo image slider in hero
    ========================= */
 
 let DATA = null;
 let LANG = "ru";
 
-/** IDs that are translated via element id="..." */
 const ID_KEYS = [
   "subtitle","priceLabel","navWaText",
-  "heroTitle","heroText","heroWaText","moreBtn","phoneText",
-  "sideTitle","chip1","chip2","chip3","chip4","sideNote",
+  "heroTitle","heroText","heroWaText","moreBtnText","phoneText",
   "featTitle","feat1","feat2","feat3","feat4",
-  "prodTitle","prodText","prodLi1","prodLi2","prodLi3","prodLi4","prodWaText",
   "useTitle","use1","use2","use3","use4",
   "ctaLabel","ctaNote","ctaWaText",
   "galTitle","galText",
   "igTitle","igHint",
   "ctTitle","ctPhone","workTime","ctWaText",
   "waFloatText",
-  "pricePageTitle","priceWaText",
+  
+  "prod_advantages_title", "prod_adv1", "prod_adv2", "prod_adv3", "prod_adv4",
 
-  /* PRICE page extra keys (optional) */
-  "price_h1","price_intro","price_source","price_quick_title",
-  "modules_title","modules_desc",
-  "extras_title","extras_desc","extras_note",
-  "openings_title","openings_desc",
-  "notes_title","notes_after",
-  "pdf_title","pdf_text",
-
-  /* ABOUT page keys */
   "about_title", "about_intro", "about_h2", "about_p1",
   "about_h3_1", "about_p2", "about_h3_2", "about_p3",
   "about_li_1", "about_li_2", "about_li_3", "about_h3_3",
   "about_li_4", "about_li_5", "about_li_6", "about_li_7", "about_p4",
 
-  /* NEW: Product advantages keys */
-  "prod_advantages_title", "prod_adv1", "prod_adv2", "prod_adv3", "prod_adv4"
+  "tech_params_title", "tech_mod1_title", "tech_mod1_dims", "tech_mod1_spec1_lbl", "tech_mod1_spec2_lbl", "tech_mod1_spec3_lbl", "tech_mod1_spec4_lbl",
+  "tech_mod2_title", "tech_mod2_dims", "tech_mod2_spec1_lbl", "tech_mod2_spec2_lbl", "tech_mod2_spec3_lbl", "tech_mod2_spec4_lbl",
+  "tech_main_title", "tech_main_intro", "tech_h1", "tech_p1",
+  "tech_planning_title", "tech_planning_desc", "tech_planning_li1", "tech_planning_li2", "tech_planning_li3",
+  "tech_design_title", "tech_design_desc", "tech_design_li1", "tech_design_li2", "tech_design_li3",
+  "tech_h2", "tech_p2", "tech_step1_title", "tech_step1_desc", "tech_step2_title", "tech_step2_desc", "tech_step3_title", "tech_step3_desc",
+  "tech_h3", "tech_p3", "tech_concrete_li1", "tech_concrete_li2", "tech_concrete_li3",
+  "tech_h4", "tech_p4", "tech_h5", "tech_p5",
+  
+  "gos_title", "gos_intro",
+
+  "price_h1", "price_intro",
+  "price_mod1_dims", "price_mod1_area", "price_mod1_price",
+  "price_mod2_dims", "price_mod2_area", "price_mod2_price",
+  "price_canopy",
+  "notes_title", "notes_li1", "notes_li2", "notes_li3", "notes_li4", "notes_li5", "notes_address"
 ];
 
 function normalizePhone(p) {
@@ -55,57 +53,37 @@ function waLink(text) {
 
 function setWaLinks() {
   if (!DATA) return;
-
-  const msg =
-    DATA.whatsappText?.[LANG] ||
-    DATA.whatsappText?.ru ||
-    DATA.whatsappText?.ky ||
-    "";
-
+  const msg = DATA.whatsappText?.[LANG] || DATA.whatsappText?.ru || "";
   const link = waLink(msg);
-
-  const ids = [
-    "navWa","heroWa","prodWa","ctaWa","ctWa","waFloat","galWa",
-    "waHero","waPrice","waExtras","waNotes"
-  ];
-
-  ids.forEach(id=>{
+  const ids = ["navWa", "heroWa", "prodWa", "ctaWa", "ctWa", "waFloat", "galWa", "waHero", "waPrice", "waExtras", "waNotes"];
+  ids.forEach(id => {
     const el = document.getElementById(id);
     if (el) el.setAttribute("href", link);
   });
 }
 
 function setActiveLang() {
-  document.querySelectorAll(".lang__btn").forEach(btn=>{
+  document.querySelectorAll(".lang__btn").forEach(btn => {
     btn.classList.toggle("active", btn.dataset.lang === LANG);
   });
 }
 
 function getDict() {
-  return (DATA && (DATA[LANG] || DATA.ru || DATA.ky)) ? (DATA[LANG] || DATA.ru || DATA.ky) : {};
+  return (DATA && (DATA[LANG] || DATA.ru)) ? (DATA[LANG] || DATA.ru) : {};
 }
 
 function applyText() {
   if (!DATA) return;
-
   const d = getDict();
-
-  // 1) translate by id list
-  ID_KEYS.forEach(k=>{
+  ID_KEYS.forEach(k => {
     const el = document.getElementById(k);
-    if (!el) return;
-    if (d[k] !== undefined) el.innerHTML = d[k];
+    if (el && d[k] !== undefined) el.innerHTML = d[k];
   });
-
-  // 2) translate by data-i18n="key"
-  document.querySelectorAll("[data-i18n]").forEach(el=>{
+  document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.getAttribute("data-i18n");
-    if (!key) return;
-    if (d[key] !== undefined) el.innerHTML = d[key];
+    if (key && d[key] !== undefined) el.innerHTML = d[key];
   });
-
-  document.documentElement.lang = (LANG === "ru") ? "ru" : "ky";
-
+  document.documentElement.lang = LANG;
   setWaLinks();
   setActiveLang();
 }
@@ -114,36 +92,41 @@ function renderInstagram() {
   const grid = document.getElementById("igGrid");
   if (!grid || !DATA) return;
 
-  grid.innerHTML = "";
+  let sourceArray;
 
-  const urls = (DATA.instagramEmbeds || [])
+  if (document.getElementById('gos_title')) {
+    sourceArray = DATA.instagramEmbeds_gos || [];
+  } else {
+    sourceArray = DATA.instagramEmbeds_main || [];
+  }
+
+  const urls = sourceArray
     .map(u => (u || "").split("?")[0].trim())
-    .filter(u => u && !u.includes("REPLACE_"))
-    .map(u => (u.endsWith("/") ? u : (u + "/")));
+    .filter(u => u && !u.includes("REPLACE_") && !u.includes("ССЫЛКА_"));
+  
+  grid.innerHTML = "";
 
   if (urls.length === 0) {
     const d = getDict();
-    grid.innerHTML = `<div class="muted small">${d.igHint || ""}</div>`;
+    grid.innerHTML = `<div class="muted small">${d.igHint || "Ссылки на видео не найдены."}</div>`;
     return;
   }
 
-  urls.forEach((url) => {
+  urls.forEach(url => {
     const card = document.createElement("div");
     card.className = "ig-card";
-    card.innerHTML = `
-      <blockquote class="instagram-media" data-instgrm-permalink="${url}" data-instgrm-version="14" style="margin:0; width:100%"></blockquote>
-    `;
+    card.innerHTML = `<blockquote class="instagram-media" data-instgrm-permalink="${url}" data-instgrm-version="14" style="margin:0; width:100%"></blockquote>`;
     grid.appendChild(card);
   });
 
-  if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === "function") {
+  if (window.instgrm?.Embeds?.process) {
     window.instgrm.Embeds.process();
   }
 }
 
 function initLangButtons() {
-  document.querySelectorAll(".lang__btn").forEach(btn=>{
-    btn.addEventListener("click", ()=>{
+  document.querySelectorAll(".lang__btn").forEach(btn => {
+    btn.addEventListener("click", () => {
       LANG = (btn.dataset.lang === "ky") ? "ky" : "ru";
       localStorage.setItem("lang", LANG);
       applyText();
@@ -152,38 +135,33 @@ function initLangButtons() {
   });
 }
 
+function highlightActiveLink() {
+    const currentPage = window.location.pathname.split('/').pop();
+    const navLinks = document.querySelectorAll('.subnav__link');
+
+    navLinks.forEach(link => {
+        const linkPage = link.getAttribute('href').split('/').pop();
+        if (linkPage === currentPage || (currentPage === '' && linkPage === 'index.html')) {
+            link.classList.add('active');
+        }
+    });
+}
+
 function initGalleryModal() {
   const modal = document.getElementById("imgModal");
   if (!modal) return;
-
-  const modalImg =
-    document.getElementById("modalImg") ||
-    document.getElementById("imgModalContent") ||
-    modal.querySelector("img");
-
+  const modalImg = modal.querySelector("img");
   if (!modalImg) return;
-
   const imgs = Array.from(document.querySelectorAll(".zoom-img"));
   if (imgs.length === 0) return;
-
-  const closeBtn =
-    modal.querySelector(".close") ||
-    modal.querySelector("#imgClose") ||
-    modal.querySelector(".img-close");
-
-  const prevBtn =
-    modal.querySelector(".prev") ||
-    modal.querySelector(".nav.prev");
-
-  const nextBtn =
-    modal.querySelector(".next") ||
-    modal.querySelector(".nav.next");
-
+  const closeBtn = modal.querySelector(".close");
+  const prevBtn = modal.querySelector(".nav.prev");
+  const nextBtn = modal.querySelector(".nav.next");
   let idx = 0;
   let touchStartX = 0;
   let touchStartY = 0;
 
-  function open(i){
+  function open(i) {
     idx = i;
     modal.classList.add("open");
     modal.style.display = "flex";
@@ -191,67 +169,48 @@ function initGalleryModal() {
     document.body.style.overflow = "hidden";
   }
 
-  function close(){
+  function close() {
     modal.classList.remove("open");
     modal.style.display = "";
     modalImg.src = "";
     document.body.style.overflow = "";
   }
 
-  function show(step){
+  function show(step) {
     idx = (idx + step + imgs.length) % imgs.length;
     modalImg.src = imgs[idx].src;
   }
-
-  imgs.forEach((img, i)=> img.addEventListener("click", ()=>open(i)));
-
-  closeBtn?.addEventListener("click", (e)=>{ e.stopPropagation(); close(); });
-  prevBtn?.addEventListener("click", (e)=>{ e.stopPropagation(); show(-1); });
-  nextBtn?.addEventListener("click", (e)=>{ e.stopPropagation(); show(1); });
-
-  modal.addEventListener("click", (e)=>{
+  imgs.forEach((img, i) => img.addEventListener("click", () => open(i)));
+  closeBtn?.addEventListener("click", e => { e.stopPropagation(); close(); });
+  prevBtn?.addEventListener("click", e => { e.stopPropagation(); show(-1); });
+  nextBtn?.addEventListener("click", e => { e.stopPropagation(); show(1); });
+  modal.addEventListener("click", e => {
     if (e.target === modal) close();
   });
-
-  document.addEventListener("keydown", (e)=>{
+  document.addEventListener("keydown", e => {
     if (!modal.classList.contains("open")) return;
     if (e.key === "Escape") close();
     if (e.key === "ArrowLeft") show(-1);
     if (e.key === "ArrowRight") show(1);
   });
-  
-  modal.addEventListener('touchstart', (e) => {
+  modal.addEventListener('touchstart', e => {
     if (e.target.closest('.nav') || e.target.closest('.close')) return;
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
   }, { passive: true });
-
-  modal.addEventListener('touchmove', (e) => {
+  modal.addEventListener('touchmove', e => {
     if (touchStartX === 0 || touchStartY === 0) return;
-
-    const touchCurrentX = e.touches[0].clientX;
-    const touchCurrentY = e.touches[0].clientY;
-    
-    const diffX = Math.abs(touchStartX - touchCurrentX);
-    const diffY = Math.abs(touchStartY - touchCurrentY);
-
+    const diffX = Math.abs(touchStartX - e.touches[0].clientX);
+    const diffY = Math.abs(touchStartY - e.touches[0].clientY);
     if (diffX > diffY) {
       e.preventDefault();
     }
   });
-
-  modal.addEventListener('touchend', (e) => {
+  modal.addEventListener('touchend', e => {
     if (touchStartX === 0) return;
-    
-    const touchEndX = e.changedTouches[0].clientX;
-    const swipeDiff = touchStartX - touchEndX;
-
-    if (swipeDiff > 50) {
-      show(1);
-    } else if (swipeDiff < -50) {
-      show(-1);
-    }
-    
+    const swipeDiff = touchStartX - e.changedTouches[0].clientX;
+    if (swipeDiff > 50) show(1);
+    else if (swipeDiff < -50) show(-1);
     touchStartX = 0;
     touchStartY = 0;
   }, { passive: true });
@@ -260,9 +219,7 @@ function initGalleryModal() {
 function initAdSlider() {
   const slides = document.querySelectorAll('.hero-slideshow .slide');
   if (slides.length === 0) return;
-
   let currentSlide = 0;
-
   setInterval(() => {
     slides[currentSlide].classList.remove('active');
     currentSlide = (currentSlide + 1) % slides.length;
@@ -278,17 +235,16 @@ function setYear() {
 async function boot() {
   const saved = localStorage.getItem("lang");
   LANG = (saved === "ru" || saved === "ky") ? saved : "ru";
-
   initLangButtons();
   setYear();
   initGalleryModal();
   initAdSlider();
-
+  highlightActiveLink(); // <--- ВЫЗОВ НОВОЙ ФУНКЦИИ
   try {
     const res = await fetch("data.json", { cache: "no-store" });
     if (!res.ok) {
-        console.error("Failed to load data.json", res.status, res.statusText);
-        return;
+      console.error("Failed to load data.json", res.status, res.statusText);
+      return;
     }
     DATA = await res.json();
     applyText();

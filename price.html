@@ -3,11 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ROYAL SAFA — Заводдук бетон модулду | 150$ / м²</title>
-  <meta name="description" content="ROYAL SAFA: ири заводдук бетон модулду (модулдер). Баасы: 150$ / м². WhatsApp: 0559 099 666" />
+  <title>Прайс-лист на бетонные модули — ROYAL SAFA</title>
+  <meta name="description" content="Актуальные цены на монолитно-бетонные модули от ROYAL SAFA. Условия доставки, хранения и оплаты. Стоимость от 150$ за м²." />
+  <meta name="keywords" content="прайс, цены, стоимость, бетонные модули, купить, цена за м2, royalsafa, Бишкек" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="shortcut icon" href="/favicon.ico">
   <link rel="stylesheet" href="style.css" />
   <script defer src="script.js"></script>
 </head>
+
+
 
 <body>
    <!-- HEADER / NAV -->
@@ -20,7 +27,6 @@
           <div class="brand__sub" id="subtitle">Заводские бетонные модули</div>
         </div>
       </div>
-
 
       <div class="nav__right">
         <div class="price-pill">
@@ -46,6 +52,7 @@
     <a class="subnav__link" href="chastnye-doma.html" data-i18n="menu_chastnye_doma">Частные дома</a>
     <a class="subnav__link" href="kvartiry.html" data-i18n="menu_kvartiry">Квартиры</a>
     <a class="subnav__link" href="kommercheskie.html" data-i18n="menu_kommercheskie">Коммерческие</a>
+    <a class="subnav__link" href="gos-zakazy.html" data-i18n="menu_gos_zakazy">ГОС Заказы</a>
     <a class="subnav__link" href="tekhnologiya.html" data-i18n="menu_tekhnologiya">Технология</a>
     <a class="subnav__link" href="price.html" data-i18n="menu_price">Прайс</a>
     <a class="subnav__link" href="o-kompanii.html" data-i18n="menu_o_kompanii">О компании</a>
@@ -53,231 +60,57 @@
 </nav>
 
   <main>
-    <!-- HERO -->
-    <section class="hero">
+    <section class="section">
       <div class="container split">
         <div class="card">
-          <h1 id="price_h1" data-i18n="price_h1">Монолитно-бетонные модули </h1>
-          <p id="price_intro" data-i18n="price_intro">Локация: <b>Объездная / Юбилейная (на пересечении)</b>. Контакты и прайс по модулям и доп. работам — ниже.</p>
+          <div class="priceBox">
+            <div>
+              <p class="muted" id="price_mod1_dims">Ширина 4 м • Длина 8 м • Высота 3,1 м</p>
+              <p class="muted" id="price_mod1_area">Общая квадратура<b> 32 м²</b></p>
+              <div class="muted" style="font-weight:900" id="price_mod1_price">Цена 4 800 $</div>
+            </div>
+          </div>
+          <div class="priceBox">
+            <div>
+              <p class="muted" id="price_mod2_dims">Ширина 3,5 м • Длина 7 м • Высота 3,1 м</p>
+              <p class="muted" id="price_mod2_area">Общая квадратура<b> 24,5 м²</b></p>
+              <div class="muted" style="font-weight:900" id="price_mod2_price">Цена 3 675 $</div>
+            </div>
+          </div>
+          <p class="muted" style="margin-top:10px" id="price_canopy">
+            Козырёк (макс. 1,5 м): <b>50 $ / м²</b>
+          </p>
+        </div>
 
+        <div class="card">
+          <h1 id="price_h1">Монолитно-бетонные модули</h1>
+          <p id="price_intro">Локация: <b>Объездная / Юбилейная (на пересечении)</b>. Контакты и прайс по модулям и доп. работам — ниже.</p>
           <div class="chips">
             <div class="chip" data-i18n="price_chip1">🏭 Производство</div>
             <div class="chip" data-i18n="price_chip2">🚚 Доставка по городу</div>
             <div class="chip" data-i18n="price_chip3">🏗️ Монтаж краном</div>
             <div class="chip" data-i18n="price_chip4">📦 Готовые размеры</div>
-          </div>      
-           <div class="hero__actions">
+          </div>
+          <div class="hero__actions" style="margin-top: 14px;">
             <a class="btn btn--wa" id="waHero" href="#" target="_blank" rel="noopener">💬 <span data-i18n="price_btn_consult">Получить консультацию</span></a>
-            <a class="btn" href="#modules" data-i18n="price_btn_modules">Смотреть модули</a>
-          </div>      
-          </div>
-
-        <div class="card">
-          <h2 id="price_quick_title" data-i18n="price_quick_title">Быстрые ссылки</h2>
-          <ul class="noteList">
-            <li><a href="#modules" data-i18n="price_quick1">Размеры и цены модулей</a></li>
-            <li><a href="#extras" data-i18n="price_quick2">Доп. работы и услуги</a></li>
-            <li><a href="#openings" data-i18n="price_quick3">Оконные и дверные проёмы</a></li>
-            <li><a href="#notes" data-i18n="price_quick4">Условия и примечания</a></li>
-          </ul>
-
-          <div class="priceBox" style="margin-top:14px">
-            <div>
-              <div class="muted" style="font-weight:900" data-i18n="price_box_label">Цена за 1 м²</div>
-              <div class="priceBox__big">150 $ / м²</div>
-            </div>
-            <a class="btn btn--wa" id="waPrice" href="#" target="_blank" rel="noopener">🟢 <span data-i18n="price_btn_order">Уточнить заказ</span></a>
-          </div>
-        </div>
-      </div>
-      
-
-        
-      </div>
-    </section>
-
-    <!-- MODULES -->
-    <section class="section" id="modules">
-      <div class="container">
-        <h2 data-i18n="modules_title">Модули и цены</h2>
-        <!-- <p class="muted" data-i18n="modules_desc">Данные из прайс-листа: размеры, вес, толщина стен/перекрытия и итоговая стоимость.</p> -->
-
-        <div class="grid2" style="margin-top:14px">
-          <div class="card" id="m1">
-            <h2>Модуль 4×8×3,1</h2>
-            <p class="muted">Ширина 4 м • Длина 8 м • Высота 3,1 м</p>
-
-            <div class="specs">
-              <div class="spec"><span>Вес</span><b>30 т</b></div>
-              <div class="spec"><span>Толщина стен</span><b>15 см</b></div>
-              <div class="spec"><span>Толщина перекрытия</span><b>12 см</b></div>
-              <div class="spec"><span>Общая квадратура</span><b>32 м²</b></div>
-            </div>
-
-            <div class="priceBox">
-              <div>
-                <div class="muted" style="font-weight:900">Цена</div>
-                <div class="priceBox__big">4 800 $</div>
-              </div>
-              <div class="muted" style="font-weight:900">1 м² = 150 $</div>
-            </div>
-
-            <p class="muted" style="margin-top:10px">
-              Козырёк (макс. 1,5 м): <b>100 $</b>
-            </p>
-          </div>
-
-          <div class="card" id="m2">
-            <h2>Модуль 3,5×7×3,1</h2>
-            <p class="muted">Ширина 3,5 м • Длина 7 м • Высота 3,1 м</p>
-
-            <div class="specs">
-              <div class="spec"><span>Вес</span><b>30 т</b></div>
-              <div class="spec"><span>Толщина стен</span><b>15 см</b></div>
-              <div class="spec"><span>Толщина перекрытия</span><b>12 см</b></div>
-              <div class="spec"><span>Общая квадратура</span><b>24,5 м²</b></div>
-            </div>
-
-            <div class="priceBox">
-              <div>
-                <div class="muted" style="font-weight:900">Цена</div>
-                <div class="priceBox__big">3 675 $</div>
-              </div>
-              <div class="muted" style="font-weight:900">1 м² = 150 $</div>
-            </div>
-
-            <p class="muted" style="margin-top:10px">
-              Козырёк (макс. 1,5 м): <b>100 $</b>
-            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- EXTRAS -->
-    <section class="section" id="extras">
-      <div class="container">
-        <h2 data-i18n="extras_title">Доп. работы и услуги</h2>
-        <!-- <p class="muted" data-i18n="extras_desc">Отверстия и подготовка под электрику/вентиляцию, доставка и кран.</p> -->
-
-        <div class="card" style="margin-top:14px">
-          <div class="tableWrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Наименование</th>
-                  <th>Кол-во</th>
-                  <th>Цена</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Отверстие для выключателей, розеток и т.д.</td>
-                  <td>1 шт</td>
-                  <td>5 $</td>
-                </tr>
-                <tr>
-                  <td>Отверстие для распределительной коробки</td>
-                  <td>1 шт</td>
-                  <td>10 $</td>
-                </tr>
-                <tr>
-                  <td>Отверстие для вентиляции и т.д.</td>
-                  <td>1 шт</td>
-                  <td>15 $</td>
-                </tr>
-                <tr>
-                  <td>Трубы для электропроводки</td>
-                  <td>1 м</td>
-                  <td>100 сом</td>
-                </tr>
-                <tr>
-                  <td>Отверстие для осветительных приборов</td>
-                  <td>1 шт</td>
-                  <td>5 $</td>
-                </tr>
-                <tr>
-                  <td>Отверстие для электрического щита</td>
-                  <td>1 шт</td>
-                  <td>20 $</td>
-                </tr>
-                <tr>
-                  <td>Доставка одного модуля по городу</td>
-                  <td>1 шт</td>
-                  <td>150 $</td>
-                </tr>
-                <tr>
-                  <td>Кран 1 модуль (только 1 этаж; если 2 этажа — клиент сам находит кран)</td>
-                  <td>1 шт</td>
-                  <td>5000 сом</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; justify-content:space-between; align-items:center">
-            <div class="muted" data-i18n="extras_note"><b>Примечание:</b> цены указаны как в $ так и в сом (как в прайс-листе).</div>
-            <a class="btn btn--wa" id="waExtras" href="#" target="_blank" rel="noopener">🟢 <span data-i18n="extras_btn">Спросить по доп.работам</span></a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- OPENINGS -->
-    <section class="section" id="openings">
-      <div class="container">
-        <h2 data-i18n="openings_title">Оконные и дверные проёмы (размеры)</h2>
-        <!-- <p class="muted" data-i18n="openings_desc">Список размеров из прайс-листа (без цен на этом листе).</p> -->
-
-        <div class="card" style="margin-top:14px">
-          <div class="tableWrap">
-            <table style="min-width:520px">
-              <thead>
-                <tr>
-                  <th>Размеры (м)</th>
-                  <th style="text-align:right">Тип</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td>2,40 / 1,50</td><td style="text-align:right">проём</td></tr>
-                <tr><td>2,40 / 1,20</td><td style="text-align:right">проём</td></tr>
-                <tr><td>2,10 / 0,90</td><td style="text-align:right">проём</td></tr>
-                <tr><td>2,20 / 1,00</td><td style="text-align:right">проём</td></tr>
-                <tr><td>1,80 / 1,50</td><td style="text-align:right">проём</td></tr>
-                <tr><td>2,00 / 0,80</td><td style="text-align:right">проём</td></tr>
-                <tr><td>1,50 / 0,90</td><td style="text-align:right">проём</td></tr>
-                <tr><td>1,00 / 1,00</td><td style="text-align:right">проём</td></tr>
-                <tr><td>2,40 / 2,00</td><td style="text-align:right">проём</td></tr>
-                <tr><td>3,20 / 2,50</td><td style="text-align:right">проём</td></tr>
-                <tr><td>5,80 / 2,50</td><td style="text-align:right">проём</td></tr>
-                <tr><td>7,20 / 2,50</td><td style="text-align:right">проём</td></tr>
-                <tr><td>6,80 / 2,50</td><td style="text-align:right">проём</td></tr>
-                <tr><td>2,80 / 2,50</td><td style="text-align:right">проём</td></tr>
-                <tr><td>6,20 / 2,50</td><td style="text-align:right">проём</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <p class="muted" style="margin-top:12px" data-i18n="notes_after">Для расчёта и уточнения — напишите в WhatsApp.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- NOTES -->
     <section class="section" id="notes">
       <div class="container">
-        <h2 data-i18n="notes_title">Условия и примечания</h2>
-
+        <h2 id="notes_title">Условия и примечания</h2>
         <div class="card" style="margin-top:14px">
           <ul class="noteList">
-            <li>Наш кран предназначен для установки только одноэтажных зданий и сооружений. Для монтажа высотой в два и более этажей потребуется другой кран за счёт заказчика.</li>
-            <li>Доставка модулей за пределы г. Бишкек осуществляется силами и за счёт заказчика.</li>
-            <li>Модули могут храниться на территории завода не более 10 дней. После этого срока необходимо вывезти или оплачивать простой за хранение.</li>
-            <li>Перед началом проекта нужно убедиться, что транспорт (кран, трал) сможет беспрепятственно проехать к вашей территории.</li>
+            <li id="notes_li1">Наш кран предназначен для установки только одноэтажных зданий и сооружений. Для монтажа высотой в два и более этажей потребуется другой кран за счёт заказчика.</li>
+            <li id="notes_li2">Доставка модулей за пределы г. Бишкек осуществляется силами и за счёт заказчика.</li>
+            <li id="notes_li3">Модули могут храниться на территории завода не более 10 дней. После этого срока необходимо вывезти или оплачивать простой за хранение.</li>
+            <li id="notes_li4">Перед началом проекта нужно убедиться, что транспорт (кран, трал) сможет беспрепятственно проехать к вашей территории.</li>
+            <li id="notes_li5">Цены указаны в долларах, оплату можно производить в сомах по курсу НБКР на день платежа.</li>
           </ul>
-
           <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; justify-content:space-between; align-items:center">
-            <div class="muted">
+            <div class="muted" id="notes_address">
               <b>Адрес:</b> Объездная / Юбилейная (на пересечении)
             </div>
             <a class="btn btn--wa" id="waNotes" href="#" target="_blank" rel="noopener">🟢 <span data-i18n="notes_btn">Уточнить условия</span></a>
@@ -285,9 +118,6 @@
         </div>
       </div>
     </section>
-
-    <!-- PDF SOURCE -->
-   
 
     <footer class="footer">
       <div class="container footer__inner">
@@ -301,6 +131,5 @@
     <span class="wa-dot"></span>
     <span id="waFloatText" data-i18n="wa_float">WhatsApp</span>
   </a>
-
-  </body>
+</body>
 </html>

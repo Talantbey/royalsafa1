@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Галерея: Государственные заказы — ROYAL SAFA</title>
+  <meta name="description" content="Примеры выполненных государственных заказов. Объекты, построенные для государственных нужд с использованием модульной технологии." />
+  <meta name="keywords" content="галерея, фото, гос заказы, государственные, для государства, примеры работ, royalsafa" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href="index.html" aria-label="ROYAL SAFA"><img src="images/logo.png" alt="ROYAL SAFA" class="brand__logo"><div><div class="brand__title">ROYAL SAFA</div><div class="brand__sub" id="subtitle">Заводские бетонные модули</div></div></a>
+      <div class="nav__right">
+        <div class="lang" role="group" aria-label="Language"><button type="button" class="lang__btn active" data-lang="ru">RU</button><button type="button" class="lang__btn" data-lang="ky">KG</button></div>
+        <a class="btn btn--wa" id="galWa" href="#" target="_blank" rel="noopener">🟢 <span id="navWaText">Написать в WhatsApp</span></a>
+      </div>
+    </div>
+  </header>
+  
+  <nav class="subnav" aria-label="Навигация">
+    <div class="container subnav__inner">
+      <a class="subnav__link" href="index.html" data-i18n="menu_home">Главная</a>    
+      <a class="subnav__link" href="chastnye-doma.html" data-i18n="menu_chastnye_doma">Частные дома</a>
+      <a class="subnav__link" href="kvartiry.html" data-i18n="menu_kvartiry">Квартиры</a>
+      <a class="subnav__link" href="kommercheskie.html" data-i18n="menu_kommercheskie">Коммерческие</a>
+      <a class="subnav__link" href="gos-zakazy.html" data-i18n="menu_gos_zakazy">ГОС Заказы</a>
+      <a class="subnav__link" href="tekhnologiya.html" data-i18n="menu_tekhnologiya">Технология</a>
+      <a class="subnav__link" href="price.html" data-i18n="menu_price">Прайс</a>
+      <a class="subnav__link" href="o-kompanii.html" data-i18n="menu_o_kompanii">О компании</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section" id="gallery">
+      <div class="container">
+        <h1 id="gos_title">ГОС Заказы</h1>
+        <p class="muted" id="gos_intro">Фотографии построенных государственных объектов.</p>
+
+        <div class="gallery" style="margin-top:14px">
+          <!-- СЮДА НУЖНО ДОБАВИТЬ ВАШИ ФОТОГРАФИИ ГОС. ОБЪЕКТОВ -->
+          <!-- Пример: -->
+          <!-- <img src="images/gos_1.jpg" class="zoom-img" alt="Гос. объект 1"> -->
+        </div>
+      </div>
+    </section>
+
+    <!-- INSTAGRAM -->
+    <section class="section">
+      <div class="container">
+        <h2 id="igTitle">Видео из Instagram</h2>
+        <p class="muted">
+          <a class="link" href="https://www.instagram.com/royalsafa.kg/" target="_blank" rel="noopener">@royalsafa.kg</a>
+        </p>
+        <div class="ig-grid" id="igGrid"></div>
+        <div class="muted small" id="igHint">
+          Примечание: добавьте ссылки Reels в data.json.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="container footer__inner"><div>© <span id="year"></span> ROYAL SAFA — royalsafa.kg</div><div class="muted small">KG / RU</div></div></footer>
+  
+  <div id="imgModal" class="modal"><span class="close">&times;</span><button class="nav prev">&#10094;</button><img class="modal-content" id="modalImg"><button class="nav next">&#10095;</button></div>
+  <a class="wa-float" id="waFloat" href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><span class="wa-dot"></span><span id="waFloatText" data-i18n="wa_float">WhatsApp</span></a>
+  <script async src="https://www.instagram.com/embed.js"></script>
+</body>
+</html>
