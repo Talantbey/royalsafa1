@@ -33,11 +33,14 @@ const ID_KEYS = [
   "notes_title","notes_after",
   "pdf_title","pdf_text",
 
-  /* ABOUT page new keys */
+  /* ABOUT page keys */
   "about_title", "about_intro", "about_h2", "about_p1",
   "about_h3_1", "about_p2", "about_h3_2", "about_p3",
   "about_li_1", "about_li_2", "about_li_3", "about_h3_3",
-  "about_li_4", "about_li_5", "about_li_6", "about_li_7", "about_p4"
+  "about_li_4", "about_li_5", "about_li_6", "about_li_7", "about_p4",
+
+  /* NEW: Product advantages keys */
+  "prod_advantages_title", "prod_adv1", "prod_adv2", "prod_adv3", "prod_adv4"
 ];
 
 function normalizePhone(p) {
@@ -63,7 +66,6 @@ function setWaLinks() {
 
   const ids = [
     "navWa","heroWa","prodWa","ctaWa","ctWa","waFloat","galWa",
-    /* PRICE page */
     "waHero","waPrice","waExtras","waNotes"
   ];
 
@@ -114,7 +116,6 @@ function renderInstagram() {
 
   grid.innerHTML = "";
 
-  // Use official Instagram embed markup (reel pages cannot be iframed due to X-Frame-Options)
   const urls = (DATA.instagramEmbeds || [])
     .map(u => (u || "").split("?")[0].trim())
     .filter(u => u && !u.includes("REPLACE_"))
@@ -135,12 +136,10 @@ function renderInstagram() {
     grid.appendChild(card);
   });
 
-  // Ask Instagram script to process newly added embeds
   if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === "function") {
     window.instgrm.Embeds.process();
   }
 }
-
 
 function initLangButtons() {
   document.querySelectorAll(".lang__btn").forEach(btn=>{
@@ -148,15 +147,11 @@ function initLangButtons() {
       LANG = (btn.dataset.lang === "ky") ? "ky" : "ru";
       localStorage.setItem("lang", LANG);
       applyText();
-      // optional: re-render instagram hints after language change
       renderInstagram();
     });
   });
 }
 
-/* =========================
-   GALLERY LIGHTBOX
-   ========================= */
 function initGalleryModal() {
   const modal = document.getElementById("imgModal");
   if (!modal) return;
@@ -185,7 +180,6 @@ function initGalleryModal() {
     modal.querySelector(".nav.next");
 
   let idx = 0;
-  // --- Улучшенные переменные для свайпа ---
   let touchStartX = 0;
   let touchStartY = 0;
 
@@ -226,12 +220,10 @@ function initGalleryModal() {
     if (e.key === "ArrowRight") show(1);
   });
   
-  // --- НАЧАЛО УЛУЧШЕННОЙ ЛОГИКИ СВАЙПА ---
-  
   modal.addEventListener('touchstart', (e) => {
     if (e.target.closest('.nav') || e.target.closest('.close')) return;
     touchStartX = e.touches[0].clientX;
-    touchStartY = e.touches[0].clientY; // Запоминаем и Y координату
+    touchStartY = e.touches[0].clientY;
   }, { passive: true });
 
   modal.addEventListener('touchmove', (e) => {
@@ -243,12 +235,10 @@ function initGalleryModal() {
     const diffX = Math.abs(touchStartX - touchCurrentX);
     const diffY = Math.abs(touchStartY - touchCurrentY);
 
-    // Если движение больше горизонтальное, чем вертикальное,
-    // мы отменяем стандартное поведение браузера.
     if (diffX > diffY) {
       e.preventDefault();
     }
-  }); // Важно: здесь нет { passive: true }
+  });
 
   modal.addEventListener('touchend', (e) => {
     if (touchStartX === 0) return;
@@ -256,23 +246,17 @@ function initGalleryModal() {
     const touchEndX = e.changedTouches[0].clientX;
     const swipeDiff = touchStartX - touchEndX;
 
-    if (swipeDiff > 50) { // Свайп влево
+    if (swipeDiff > 50) {
       show(1);
-    } else if (swipeDiff < -50) { // Свайп вправо
+    } else if (swipeDiff < -50) {
       show(-1);
     }
     
-    // Сбрасываем координаты
     touchStartX = 0;
     touchStartY = 0;
   }, { passive: true });
-  // --- КОНЕЦ УЛУЧШЕННОЙ ЛОГИКИ СВАЙПА ---
 }
 
-
-/* =========================
-   HERO AD SLIDER (НОВАЯ ФУНКЦИЯ)
-   ========================= */
 function initAdSlider() {
   const slides = document.querySelectorAll('.hero-slideshow .slide');
   if (slides.length === 0) return;
@@ -280,33 +264,25 @@ function initAdSlider() {
   let currentSlide = 0;
 
   setInterval(() => {
-    // Скрываем текущий слайд
     slides[currentSlide].classList.remove('active');
-
-    // Вычисляем индекс следующего слайда
     currentSlide = (currentSlide + 1) % slides.length;
-
-    // Показываем следующий слайд
     slides[currentSlide].classList.add('active');
-  }, 4000); // Интервал смены: 4 секунды
+  }, 4000);
 }
 
-
-/* YEAR */
 function setYear() {
   const y = document.getElementById("year");
   if (y) y.textContent = String(new Date().getFullYear());
 }
 
 async function boot() {
-  // language preference (default RU)
   const saved = localStorage.getItem("lang");
   LANG = (saved === "ru" || saved === "ky") ? saved : "ru";
 
   initLangButtons();
   setYear();
   initGalleryModal();
-  initAdSlider(); // <--- ВЫЗОВ НОВОЙ ФУНКЦИИ
+  initAdSlider();
 
   try {
     const res = await fetch("data.json", { cache: "no-store" });
@@ -323,4 +299,3 @@ async function boot() {
 }
 
 document.addEventListener("DOMContentLoaded", boot);
-
